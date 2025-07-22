@@ -32,7 +32,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 echo 'Generating Terraform execution plan...'
-                sh 'terraform plan'
+                sh 'terraform plan -out=tfplan'
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 input message: 'Approve Terraform Apply?'
                 echo 'Applying Terraform changes...'
-                sh 'terraform apply'
+                sh 'terraform apply -auto-approve tfplan'
             }
         }
     }
